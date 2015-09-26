@@ -1,4 +1,4 @@
-package helloworld;
+package remy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 
-public class RemmySpeechlet implements Speechlet {
+public class RemySpeechlet implements Speechlet {
         private static final Logger log = LoggerFactory.getLogger(RemySpeechlet.class);
 
         @Override
@@ -32,7 +32,7 @@ public class RemmySpeechlet implements Speechlet {
                 throws SpeechletException {
                 log.info("onLaunch requestId={}, sessionId={}", request.getRequestId(),
                          session.getSessionId());
-                return getWelcomeResponse();
+                return getHelpResponse();
         }
 
         @Override

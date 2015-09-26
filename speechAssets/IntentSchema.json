@@ -1,0 +1,24 @@
+{
+  "intents": [
+    {
+      "intent": "HelpIntent",
+      "slots": []
+    },
+    {
+      "intent": "GetStepIntent",
+      "slots": []
+    },
+    {
+      "intent": "GetNextStepIntent",
+      "slots": []
+    },
+    {
+      "intent": "GetPreviousStepIntent",
+      "slots": []
+    },
+    {
+      "intent": "ResetStepIntent",
+      "slots": []
+    }
+  ]
+}

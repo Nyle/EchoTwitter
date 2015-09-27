@@ -13,9 +13,12 @@ HelpIntent how do I use you
 HelpIntent how can I use you
 HelpIntent what can you tell me
 
-SetRecipeIntent do you have a recipe for {spagheti|Recipe}
+SetRecipeIntent do you have a recipe for {spaghetti|Recipe}
+SetRecipeIntent do you have a recipe for {caramel|Recipe}
+SetRecipeIntent do you have a recipe for {ramen|Recipe}
+SetRecipeIntent do you have a recipe for {grilled cheese|Recipe}
 SetRecipeIntent do you have {chicken|Recipe}
-SetRecipeIntent get a recipe for {souffle|Recipe}
+SetRecipeIntent get a recipe for {soufflé|Recipe}
 SetRecipeIntent I want to make {turkey dinner|Recipe}
 SetRecipeIntent help me make {candy|Recipe}
 SetRecipeIntent let's make {duck|Recipe}

@@ -17,29 +17,33 @@ import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 
 public class RemySpeechlet implements Speechlet {
-        private static final Logger log = LoggerFactory.getLogger(RemySpeechlet.class);
+        private static final Logger log = LoggerFactory.getLogger(
+                RemySpeechlet.class);
 
         @Override
-        public void onSessionStarted(final SessionStartedRequest request, final Session session)
+        public void onSessionStarted(final SessionStartedRequest request,
+                                     final Session session)
                 throws SpeechletException {
-                log.info("onSessionStarted requestId={}, sessionId={}", request.getRequestId(),
-                         session.getSessionId());
+                log.info("onSessionStarted requestId={}, sessionId={}",
+                         request.getRequestId(), session.getSessionId());
                 // any initialization logic goes here
         }
 
         @Override
-        public SpeechletResponse onLaunch(final LaunchRequest request, final Session session)
+        public SpeechletResponse onLaunch(final LaunchRequest request,
+                                          final Session session)
                 throws SpeechletException {
-                log.info("onLaunch requestId={}, sessionId={}", request.getRequestId(),
-                         session.getSessionId());
+                log.info("onLaunch requestId={}, sessionId={}",
+                         request.getRequestId(), session.getSessionId());
                 return getHelpResponse();
         }
 
         @Override
-        public SpeechletResponse onIntent(final IntentRequest request, final Session session)
+        public SpeechletResponse onIntent(final IntentRequest request,
+                                          final Session session)
                 throws SpeechletException {
-                log.info("onIntent requestId={}, sessionId={}", request.getRequestId(),
-                         session.getSessionId());
+                log.info("onIntent requestId={}, sessionId={}",
+                         request.getRequestId(), session.getSessionId());
 
                 Intent intent = request.getIntent();
                 String intentName = (intent != null) ? intent.getName() : null;
@@ -52,18 +56,17 @@ public class RemySpeechlet implements Speechlet {
         }
 
         @Override
-        public void onSessionEnded(final SessionEndedRequest request, final Session session)
+        public void onSessionEnded(final SessionEndedRequest request,
+                                   final Session session)
                 throws SpeechletException {
-                log.info("onSessionEnded requestId={}, sessionId={}", request.getRequestId(),
-                         session.getSessionId());
-                // any cleanup logic goes here
+                log.info("onSessionEnded requestId={}, sessionId={}",
+                         request.getRequestId(), session.getSessionId());
         }
 
         private SpeechletResponse getHelpResponse() {
-                String speechText = "Hi I am Remy, and I know how to make all kinds of things" +
-                		"but mostly grilled cheese";
+                String speechText = "Hi I am Remy, and I know how to make all" +
+                        " kinds of things but mostly grilled cheese";
 
-                // Create the plain text output.
                 PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
                 speech.setText(speechText);
 

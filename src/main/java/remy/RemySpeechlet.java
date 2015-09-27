@@ -24,7 +24,6 @@ public class RemySpeechlet implements Speechlet {
     private static final Logger log = LoggerFactory.getLogger(RemySpeechlet.class);
     private AmazonDynamoDBClient amazonDynamoDBClient;
     private ResponseManager responseManager;
-    private SkillContext skillContext;
 
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
@@ -36,7 +35,6 @@ public class RemySpeechlet implements Speechlet {
 
         // if user said a one shot command that triggered an intent event,
         // it will start a new session, and then we should avoid speaking too many words.
-        skillContext.setNeedsMoreHelp(false);
     }
 
     @Override
@@ -45,8 +43,7 @@ public class RemySpeechlet implements Speechlet {
         log.info("onLaunch requestId={}, sessionId={}", request.getRequestId(),
                 session.getSessionId());
 
-        skillContext.setNeedsMoreHelp(true);
-        return scoreKeeperManager.getLaunchResponse(request, session);
+        return responseManager.getLaunchResponse(request, session);
     }
 
     @Override
@@ -58,7 +55,7 @@ public class RemySpeechlet implements Speechlet {
 
         Intent intent = request.getIntent();
         if ("HelpIntent".equals(intent.getName())) {
-            return scoreKeeperManager.getHelpIntentResponse(intent, session, skillContext);
+            return responseManager.getHelpIntentResponse(intent, session);
         } else {
             throw new IllegalArgumentException("Unrecognized intent: " + intent.getName());
         }

@@ -4,7 +4,7 @@
     http://aws.amazon.com/apache2.0/
     or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-package Remy;
+package remy;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -25,7 +25,9 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 public class ResponseManager {
 
     public ResponseManager(final AmazonDynamoDBClient amazonDynamoDbClient) {
+        /* 
         RemyDynamoDbClient dynamoDbClient = new RemyDynamoDbClient(amazonDynamoDbClient);
+        */
         /* we will then pass this object to our own custom db class */
     }
 
@@ -51,14 +53,10 @@ public class ResponseManager {
      *            {@link Intent} for this request
      * @param session
      *            {@link Session} for this request
-     * @param skillContext
-     *            {@link SkillContext} for this request
      * @return response for the help intent
      */
-    public SpeechletResponse getHelpIntentResponse(Intent intent, Session session,
-            SkillContext skillContext) {
-        return skillContext.needsMoreHelp() ? getAskSpeechletResponse("Do you need more help?")
-            : getTellSpeechletResponse("Strong independent black woman don't need no man.");
+    public SpeechletResponse getHelpIntentResponse(Intent intent, Session session) {
+        return getAskSpeechletResponse("Do you need more help?", "I'll help you.");
     }
 
     /**

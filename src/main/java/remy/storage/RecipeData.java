@@ -24,21 +24,12 @@ public class RecipeData {
      */
     public static RecipeData newInstance() {
         RecipeData newInstance = new RecipeData();
-        newInstance.setTitle("");
         newInstance.setSteps(null);
         return newInstance;
     }
     
-    public String getTitle() {
-    	return title;
-    }
-    
     public List<String> getSteps() {
     	return steps;
-    }
-    
-    public void setTitle(String title) {
-    	this.title = title;
     }
     
     public void setSteps(List<String> steps) {

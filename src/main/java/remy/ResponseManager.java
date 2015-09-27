@@ -10,6 +10,8 @@ import remy.storage.RecipeDao;
 import remy.storage.RecipeSession;
 import remy.storage.RecipeSessionData;
 import remy.storage.RecipeDynamoDbClient;
+import remy.storage.Recipe;
+import remy.storage.RecipeData;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -28,7 +30,6 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
  * the flow of the game.
  */
 public class ResponseManager {
-<<<<<<< HEAD
         private final RecipeDao recipeDao;
         
         public ResponseManager(final AmazonDynamoDBClient amazonDynamoDbClient){
@@ -74,8 +75,22 @@ public class ResponseManager {
 
         public SpeechletResponse setRecipeIntentResponse(Intent intent,
                                                          Session session) {
-
-                String recipe = intent.getSlot("Recipe").getValue();
+                String desiredRecipe = intent.getSlot("Recipe").getValue();
+                RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh.getTitle() == null) {
+                        return getAskSpeechletResponse(
+                                "I'm sorry, I don't have a recipe for that " +
+                                "would you like to look for something else?",
+                                "please ask for something else to look for");
+                }
+                Recipe recipe = recipeDao.getRecipe(desiredRecipe);
+                sesh.setTitle(desiredRecipe);
+                sesh.setStep(0);
+                recipeDao.saveRecipeSession(sesh);
+                return getAskSpeechletResponse("I've got that! say next " +
+                                                    "step to get started",
+                                                    "say net step to get " +
+                                                    "started");
         }
         
         /**
@@ -90,14 +105,20 @@ public class ResponseManager {
         public SpeechletResponse getStepIntentResponse(Intent intent,
                                                        Session session) {
                 RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh.getTitle() == null) {
+                        return getAskSpeechletResponse(
+                                "You haven't selected a recipe to cook yet " +
+                                "ask about one to find out if I have it",
+                                "ask about a recipe to get started");
+                }
+                Recipe recipe = recipeDao.getRecipe(sesh.getTitle());
                 if (sesh == null) {
                         sesh = RecipeSession.newInstance(
                                 session, RecipeSessionData.newInstance(null));
                 }
 
                 recipeDao.saveRecipeSession(sesh);
-                return getTellSpeechletResponse("We are on step " +
-                                                sesh.getStep());
+                return getTellSpeechletResponse(recipe.getStep(sesh.getStep()));
         }
 
         /**
@@ -112,15 +133,29 @@ public class ResponseManager {
         public SpeechletResponse getNextStepIntentResponse(Intent intent,
                                                            Session session) {
                 RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh.getTitle() == null) {
+                        return getAskSpeechletResponse(
+                                "You haven't selected a recipe to cook yet " +
+                                "ask about one to find out if I have it",
+                                "ask about a recipe to get started");
+                }
+                Recipe recipe = recipeDao.getRecipe(sesh.getTitle());
                 if (sesh == null) {
                         sesh = RecipeSession.newInstance(
                                 session, RecipeSessionData.newInstance(null));
                 }
+                if (sesh.getStep() > recipe.getSize()) {
+                        sesh.setStep(0);
+                        return getTellSpeechletResponse(
+                                "this is the end of the recipe. When you are " +
+                                "done, ask me to reset to get ready to cook " +
+                                "something else");
+                }
+                
                 sesh.setStep(sesh.getStep() + 1);
                 
                 recipeDao.saveRecipeSession(sesh);
-                return getTellSpeechletResponse("We are now on step " +
-                                                sesh.getStep());
+                return getTellSpeechletResponse(recipe.getStep(sesh.getStep()));
         }
 
         /**
@@ -135,15 +170,25 @@ public class ResponseManager {
         public SpeechletResponse getPreviousStepIntentResponse(
                 Intent intent, Session session) {
                 RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh.getTitle() == null) {
+                        return getAskSpeechletResponse(
+                                "You haven't selected a recipe to cook yet " +
+                                "ask about one to find out if I have it",
+                                "ask about a recipe to get started");
+                }
+                Recipe recipe = recipeDao.getRecipe(sesh.getTitle());
                 if (sesh == null) {
                         sesh = RecipeSession.newInstance(
                                 session, RecipeSessionData.newInstance(null));
                 }
+                if (sesh.getStep() < 1) {
+                        return getTellSpeechletResponse(
+                                "you are already on the first step");
+                }
                 sesh.setStep(sesh.getStep() - 1);
 
                 recipeDao.saveRecipeSession(sesh);
-                return getTellSpeechletResponse("We are now on step " +
-                                                sesh.getStep());
+                return getTellSpeechletResponse(recipe.getStep(sesh.getStep()));
         }
 
         /**
@@ -158,13 +203,17 @@ public class ResponseManager {
         public SpeechletResponse resetStepIntentResponse(Intent intent,
                                                          Session session) {
                 RecipeSession sesh = recipeDao.getRecipeSession(session);
-                if (sesh == null) {
+                if (sesh.getTitle() == null) {
                         sesh = RecipeSession.newInstance(
                                 session, RecipeSessionData.newInstance(null));
                 }
+                Recipe recipe = recipeDao.getRecipe(sesh.getTitle());
                 sesh.setStep(0);
-                return getTellSpeechletResponse("We are now on step " +
-                                                sesh.getStep());
+                sesh.setTitle(null);
+                
+                recipeDao.saveRecipeSession(sesh);
+                return getTellSpeechletResponse(
+                        "The current recipe and step have been cleared");
         }
 
         /**

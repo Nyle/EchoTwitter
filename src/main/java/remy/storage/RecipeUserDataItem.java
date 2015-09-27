@@ -67,7 +67,7 @@ public class RecipeUserDataItem {
 						});
 			} catch (Exception e) {
 				throw new IllegalStateException(
-						"Unable to unmarshall game data value", e);
+						"Unable to unmarshall user data value", e);
 			}
 		}
 	}

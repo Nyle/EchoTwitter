@@ -27,6 +27,12 @@ public class RecipeDynamoDbClient {
 		return item;
 	}
 
+        public RecipeDataItem loadRecipe(final RecipeDataItem recipeItem) {
+                DynamoDBMapper mapper = createDynamoDBMapper();
+                RecipeDataItem item = mapper.load(recipeItem);
+                return item;
+        }
+
 	/**
 	 * Stores an item to DynamoDB.
 	 * 

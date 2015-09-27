@@ -14,8 +14,8 @@ public class RecipeDao {
 	}
 
 	/**
-	 * Reads and returns the {@link RecipeSession} using user information from
-	 * the session.
+	 * Reads and returns the {@link RecipeSession} using user information
+         * from the session.
 	 * <p>
 	 * Returns null if the item could not be found in the database.
 	 * 
@@ -32,7 +32,8 @@ public class RecipeDao {
 			return null;
 		}
 
-		return RecipeSession.newInstance(session, item.getSessionData());
+		return RecipeSession.newInstance(session,
+                                                 item.getSessionData());
 	}
 
 	/**
@@ -47,4 +48,17 @@ public class RecipeDao {
 
 		dynamoDbClient.saveItem(item);
 	}
+
+        public Recipe getRecipe(String desiredRecipe) {
+                RecipeDataItem recipe = new RecipeDataItem();
+                recipe.setRecipe(desiredRecipe);
+
+                recipe = dynamoDbClient.loadRecipe(recipe);
+
+                if (recipe == null) {
+                        return null;
+                }
+                
+                return Recipe.newInstance(recipe.getRecipeData());
+        }
 }

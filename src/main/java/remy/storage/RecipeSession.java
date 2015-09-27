@@ -31,7 +31,7 @@ public final class RecipeSession {
 	 * @see RecipeSessionData#newInstance()
 	 */
 	public static RecipeSession newInstance(Session session,
-			RecipeSessionData seshData) {
+                                                RecipeSessionData seshData) {
 		RecipeSession sesh = new RecipeSession();
 		sesh.setSession(session);
 		sesh.setSessionData(seshData);

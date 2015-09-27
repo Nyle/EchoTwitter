@@ -5,12 +5,15 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.List;
+
 
 import com.amazon.speech.speechlet.Session;
 
 
 public final class Recipe {
 	private RecipeData bookData;
+        private String recipe;
 	
 	private Recipe() {
 		//Intentionally Blank
@@ -42,10 +45,14 @@ public final class Recipe {
 	protected RecipeData getRecipeData() {
 		return bookData;
 	}
-	
-	public String getTitle() {
-		return bookData.getTitle();
-	}
+
+        public void setRecipe(String recipe) {
+                this.recipe = recipe;
+        }
+
+        public String getRecipe() {
+                return this.recipe;
+        }
 	
 	public List<String> getSteps() {
 		return bookData.getSteps();

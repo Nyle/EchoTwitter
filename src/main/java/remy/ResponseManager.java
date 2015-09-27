@@ -72,6 +72,12 @@ public class ResponseManager {
                 return getTellSpeechletResponse(speechText);
         }
 
+        public SpeechletResponse setRecipeIntentResponse(Intent intent,
+                                                         Session session) {
+
+                String recipe = intent.getSlot("Recipe").getValue();
+        }
+        
         /**
          * Creates and returns response for the getStep intent.
          *

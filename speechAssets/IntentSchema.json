@@ -8,7 +8,7 @@
       "intent": "SetRecipeIntent",
       "slots": [
         {
-          "name": "recipe",
+          "name": "Recipe",
           "type": "LITERAL"
         }
       ]

@@ -16,6 +16,7 @@ import remy.storage.RecipeData;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.SortedMap;
+import java.util.List;
 
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.speechlet.LaunchRequest;
@@ -49,10 +50,19 @@ public class ResponseManager {
          */
         public SpeechletResponse getLaunchResponse(LaunchRequest request,
                                                    Session session) {
+                RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh.getTitle() == null) {
+                        return getAskSpeechletResponse(
+                                "Select a recipe to get started or ask for " +
+                                "help to get more information",
+                                "Select a recipe to get started or ask for " +
+                                "help to get more information");
+                }
                 return getAskSpeechletResponse(
-                        "let's make a sandwitch! ask for the next step to " +
-                        "get started or for help to get more options",
-                        "ask for help if you need it");
+                        "When we last talked you were on step " +
+                        sesh.getStep() + " of " + sesh.getTitle() + ". " +
+                        "if you want to continue say next step, otherwise " +
+                        "say help for more options", "");
         }
 
         /**
@@ -66,9 +76,7 @@ public class ResponseManager {
          */
         public SpeechletResponse getHelpIntentResponse(Intent intent,
                                                        Session session) {
-                String speechText = "Hi! I'm Remy, you can ask me for the " +
-                        "next step, to repeat the current or " +
-                        "previous step, or to restart from the first step";
+                String speechText = "Say things like, do you have a recipe for ramen, what is the next step, what was the previous step, list ingredients, restart";
 
                 return getTellSpeechletResponse(speechText);
         }
@@ -105,6 +113,10 @@ public class ResponseManager {
         public SpeechletResponse getStepIntentResponse(Intent intent,
                                                        Session session) {
                 RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh == null) {
+                        sesh = RecipeSession.newInstance(
+                                session, RecipeSessionData.newInstance(null));
+                }
                 if (sesh.getTitle() == null) {
                         return getAskSpeechletResponse(
                                 "You haven't selected a recipe to cook yet " +
@@ -112,11 +124,9 @@ public class ResponseManager {
                                 "ask about a recipe to get started");
                 }
                 Recipe recipe = recipeDao.getRecipe(sesh.getTitle());
-                if (sesh == null) {
-                        sesh = RecipeSession.newInstance(
-                                session, RecipeSessionData.newInstance(null));
+                if (sesh.getStep() == 0) {
+                        sesh.setStep(1);
                 }
-
                 recipeDao.saveRecipeSession(sesh);
                 return getTellSpeechletResponse(recipe.getStep(sesh.getStep()));
         }
@@ -133,6 +143,10 @@ public class ResponseManager {
         public SpeechletResponse getNextStepIntentResponse(Intent intent,
                                                            Session session) {
                 RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh == null) {
+                        sesh = RecipeSession.newInstance(
+                                session, RecipeSessionData.newInstance(null));
+                }
                 if (sesh.getTitle() == null) {
                         return getAskSpeechletResponse(
                                 "You haven't selected a recipe to cook yet " +
@@ -140,10 +154,6 @@ public class ResponseManager {
                                 "ask about a recipe to get started");
                 }
                 Recipe recipe = recipeDao.getRecipe(sesh.getTitle());
-                if (sesh == null) {
-                        sesh = RecipeSession.newInstance(
-                                session, RecipeSessionData.newInstance(null));
-                }
                 if (sesh.getStep() > recipe.getSize()) {
                         sesh.setStep(0);
                         return getTellSpeechletResponse(
@@ -170,6 +180,10 @@ public class ResponseManager {
         public SpeechletResponse getPreviousStepIntentResponse(
                 Intent intent, Session session) {
                 RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh == null) {
+                        sesh = RecipeSession.newInstance(
+                                session, RecipeSessionData.newInstance(null));
+                }
                 if (sesh.getTitle() == null) {
                         return getAskSpeechletResponse(
                                 "You haven't selected a recipe to cook yet " +
@@ -177,10 +191,6 @@ public class ResponseManager {
                                 "ask about a recipe to get started");
                 }
                 Recipe recipe = recipeDao.getRecipe(sesh.getTitle());
-                if (sesh == null) {
-                        sesh = RecipeSession.newInstance(
-                                session, RecipeSessionData.newInstance(null));
-                }
                 if (sesh.getStep() < 1) {
                         return getTellSpeechletResponse(
                                 "you are already on the first step");
@@ -215,6 +225,35 @@ public class ResponseManager {
                 return getTellSpeechletResponse(
                         "The current recipe and step have been cleared");
         }
+
+        public SpeechletResponse listIngredientsIntentResponse(Intent intent,
+                                                              Session session) {
+                RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh == null) {
+                        sesh = RecipeSession.newInstance(
+                                session, RecipeSessionData.newInstance(null));
+                }
+                if (sesh.getTitle() == null) {
+                        return getAskSpeechletResponse(
+                                "You haven't selected a recipe to cook yet " +
+                                "ask about one to find out if I have it",
+                                "ask about a recipe to get started");
+                }
+                Recipe recipe = recipeDao.getRecipe(sesh.getTitle());
+
+                recipeDao.saveRecipeSession(sesh);
+                List<String> ingredientsList = recipe.getIngredients();
+                String ingredients = String.join(
+                        ", ",
+                        ingredientsList.subList(0,
+                                                ingredientsList.size() - 1)) +
+                        " and " + ingredientsList.subList(
+                                ingredientsList.size() - 1,
+                                ingredientsList.size());
+                return getTellSpeechletResponse("the ingredients are " +
+                                                ingredients);
+        }
+                
 
         /**
          * Returns an ask Speechlet response for a speech and reprompt text.

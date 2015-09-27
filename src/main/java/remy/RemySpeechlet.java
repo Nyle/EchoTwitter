@@ -68,7 +68,11 @@ public class RemySpeechlet implements Speechlet {
 		} else if ("ResetStepIntent".equals(intent.getName())) {
 			return responseManager.resetStepIntentResponse(
                                 intent, session);
-		} else {
+		} else if ("ListIngredientsIntent".equals(intent.getName())) {
+			return responseManager.listIngredientsIntentResponse(
+                                intent, session);
+                        
+                } else {
 			throw new IllegalArgumentException("Unrecognized intent: "
                                                            + intent.getName());
 		}

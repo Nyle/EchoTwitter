@@ -59,10 +59,14 @@ public final class Recipe {
 	}
 	
 	public String getStep(int i) {
-		return bookData.getSteps().get(i);
+		return bookData.getSteps().get(i - 1);
 	}
 	
 	public int getSize() {
 		return bookData.getSteps().size();
 	}
+
+        public List<String> getIngredients() {
+                return bookData.getIngredients();
+        }
 }

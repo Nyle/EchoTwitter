@@ -28,6 +28,10 @@
     {
       "intent": "ResetStepIntent",
       "slots": []
+    },
+    {
+      "intent": "GetIngredientsIntent",
+      "slots": []
     }
   ]
 }

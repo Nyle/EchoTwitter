@@ -67,6 +67,11 @@ GetPreviousStepIntent previous step please
 GetPreviousStepIntent go back a step
 GetPreviousStepIntent go back
 
+ListIngredientsIntent what are the ingredients
+ListIngredientsIntent what are the ingredients in this
+ListIngredientsIntent what is in this
+ListIngredientsIntent ingredients
+
 ResetStepIntent start over
 ResetStepIntent go back to the beginning
 ResetStepIntent reset

@@ -56,7 +56,13 @@ public class ResponseManager {
      * @return response for the help intent
      */
     public SpeechletResponse getHelpIntentResponse(Intent intent, Session session) {
-        return getAskSpeechletResponse("Do you need more help?", "I'll help you.");
+        String speechText = "Hi I am Remy, and I know how to make all" +
+            " kinds of things but mostly grilled cheese";
+
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(speechText);
+
+        return SpeechletResponse.newTellResponse(speech);
     }
 
     /**

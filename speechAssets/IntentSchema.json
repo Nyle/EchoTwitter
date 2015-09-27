@@ -5,6 +5,14 @@
       "slots": []
     },
     {
+      "intent": "SetRecipeIntent",
+      "slots": [
+        {
+          "name": "recipe",
+          "type": "LITERAL"
+        }
+      ]
+    {
       "intent": "GetStepIntent",
       "slots": []
     },

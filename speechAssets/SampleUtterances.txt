@@ -13,6 +13,14 @@ HelpIntent how do I use you
 HelpIntent how can I use you
 HelpIntent what can you tell me
 
+SetRecipeIntent do you have a recipe for {spagheti|recipe}
+SetRecipeIntent do you have {chicken|recipe}
+SetRecipeIntent get a recipe for {souffle|recipe}
+SetRecipeIntent I want to make {turkey dinner|recipe}
+SetRecipeIntent help me make {candy|recipe}
+SetRecipeIntent let's make {duck|recipe}
+SetRecipeIntent how about we make {chocolate|recipe}
+
 GetStepIntent what is the current step
 GetStepIntent repeat
 GetStepIntent repeat that

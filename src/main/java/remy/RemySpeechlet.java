@@ -60,7 +60,8 @@ public class RemySpeechlet implements Speechlet {
         }
 
         private SpeechletResponse getHelpResponse() {
-                String speechText = "sheit niggah";
+                String speechText = "Hi I am Remy, and I know how to make all kinds of things" +
+                		"but mostly grilled cheese";
 
                 // Create the plain text output.
                 PlainTextOutputSpeech speech = new PlainTextOutputSpeech();

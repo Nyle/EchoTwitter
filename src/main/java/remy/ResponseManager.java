@@ -6,6 +6,12 @@
 */
 package remy;
 
+import remy.storage.RecipeDao;
+import remy.storage.RecipeSession;
+import remy.storage.RecipeSessionData;
+import remy.storage.RecipeDynamoDbClient;
+
+
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.SortedMap;
@@ -23,10 +29,12 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
  * the flow of the game.
  */
 public class ResponseManager {
+        private final RecipeDao recipeDao;
         
         public ResponseManager(final AmazonDynamoDBClient amazonDynamoDbClient){
-                RemyDynamoDbClient dynamoDbClient =
-                        new RemyDynamoDbClient(amazonDynamoDbClient);
+                RecipeDynamoDbClient dynamoDbClient =
+                        new RecipeDynamoDbClient(amazonDynamoDbClient);
+                recipeDao = new RecipeDao(dynamoDbClient);
         }
 
         /**
@@ -40,10 +48,10 @@ public class ResponseManager {
          */
         public SpeechletResponse getLaunchResponse(LaunchRequest request,
                                                    Session session) {
-                /* use the session to get info about current reciepe */
-
-                return getAskSpeechletResponse("Ask me for a recipe.",
-                                               "How about a souffle?");
+                return getAskSpeechletResponse(
+                        "let's make a sandwitch! ask for the next step to " +
+                        "get started or for help to get more options",
+                        "ask for help if you need it");
         }
 
         /**
@@ -57,13 +65,100 @@ public class ResponseManager {
          */
         public SpeechletResponse getHelpIntentResponse(Intent intent,
                                                        Session session) {
-                String speechText = "Hi I am Remy, and I know how to make all" +
-                        " kinds of things but mostly grilled cheese";
+                String speechText = "Hi! I'm Remy, you can ask me for the " +
+                        "next step, to repeat the current or " +
+                        "previous step, or to restart from the first step";
 
-                PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-                speech.setText(speechText);
+                return getTellSpeechletResponse(speechText);
+        }
 
-                return SpeechletResponse.newTellResponse(speech);
+        /**
+         * Creates and returns response for the getStep intent.
+         *
+         * @param intent
+         *            {@link Intent} for this request
+         * @param session
+         *            {@link Session} for this request
+         * @return response for the help intent
+         */
+        public SpeechletResponse getStepIntentResponse(Intent intent,
+                                                       Session session) {
+                RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh == null) {
+                        sesh = RecipeSession.newInstance(
+                                session, RecipeSessionData.newInstance(null));
+                }
+
+                recipeDao.saveRecipeSession(sesh);
+                return getTellSpeechletResponse("We are on step " +
+                                                sesh.getStep());
+        }
+
+        /**
+         * Creates and returns response for the getNextStep intent.
+         *
+         * @param intent
+         *            {@link Intent} for this request
+         * @param session
+         *            {@link Session} for this request
+         * @return response for the help intent
+         */
+        public SpeechletResponse getNextStepIntentResponse(Intent intent,
+                                                           Session session) {
+                RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh == null) {
+                        sesh = RecipeSession.newInstance(
+                                session, RecipeSessionData.newInstance(null));
+                }
+                sesh.setStep(sesh.getStep() + 1);
+                
+                recipeDao.saveRecipeSession(sesh);
+                return getTellSpeechletResponse("We are now on step " +
+                                                sesh.getStep());
+        }
+
+        /**
+         * Creates and returns response for the getPreviousStep intent.
+         *
+         * @param intent
+         *            {@link Intent} for this request
+         * @param session
+         *            {@link Session} for this request
+         * @return response for the help intent
+         */
+        public SpeechletResponse getPreviousStepIntentResponse(
+                Intent intent, Session session) {
+                RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh == null) {
+                        sesh = RecipeSession.newInstance(
+                                session, RecipeSessionData.newInstance(null));
+                }
+                sesh.setStep(sesh.getStep() - 1);
+
+                recipeDao.saveRecipeSession(sesh);
+                return getTellSpeechletResponse("We are now on step " +
+                                                sesh.getStep());
+        }
+
+        /**
+         * Creates and returns response for the restartStep intent.
+         *
+         * @param intent
+         *            {@link Intent} for this request
+         * @param session
+         *            {@link Session} for this request
+         * @return response for the help intent
+         */
+        public SpeechletResponse resetStepIntentResponse(Intent intent,
+                                                         Session session) {
+                RecipeSession sesh = recipeDao.getRecipeSession(session);
+                if (sesh == null) {
+                        sesh = RecipeSession.newInstance(
+                                session, RecipeSessionData.newInstance(null));
+                }
+                sesh.setStep(0);
+                return getTellSpeechletResponse("We are now on step " +
+                                                sesh.getStep());
         }
 
         /**

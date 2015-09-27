@@ -56,6 +56,18 @@ public class RemySpeechlet implements Speechlet {
                 if ("HelpIntent".equals(intent.getName())) {
                         return responseManager.getHelpIntentResponse(intent,
                                                                      session);
+                } else if ("GetStepIntent".equals(intent.getName())) {
+                        return responseManager.getStepIntentResponse(intent,
+                                                                     session);
+                } else if ("GetNextStepIntent".equals(intent.getName())) {
+                        return responseManager.getNextStepIntentResponse(
+                                intent, session);
+                } else if ("GetPreviousStepIntent".equals(intent.getName())) {
+                        return responseManager.getPreviousStepIntentResponse(
+                                intent, session);
+                } else if ("ResetStepIntent".equals(intent.getName())) {
+                        return responseManager.resetStepIntentResponse(
+                                intent, session);
                 } else {
                         throw new IllegalArgumentException(
                                 "Unrecognized intent: " + intent.getName());

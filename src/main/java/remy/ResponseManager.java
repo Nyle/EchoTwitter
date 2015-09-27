@@ -77,13 +77,13 @@ public class ResponseManager {
                                                          Session session) {
                 String desiredRecipe = intent.getSlot("Recipe").getValue();
                 RecipeSession sesh = recipeDao.getRecipeSession(session);
-                if (sesh.getTitle() == null) {
+                Recipe recipe = recipeDao.getRecipe(desiredRecipe);
+                if (recipe == null) {
                         return getAskSpeechletResponse(
                                 "I'm sorry, I don't have a recipe for that " +
                                 "would you like to look for something else?",
                                 "please ask for something else to look for");
                 }
-                Recipe recipe = recipeDao.getRecipe(desiredRecipe);
                 sesh.setTitle(desiredRecipe);
                 sesh.setStep(0);
                 recipeDao.saveRecipeSession(sesh);

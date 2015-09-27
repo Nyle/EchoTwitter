@@ -51,4 +51,9 @@ GetPreviousStepIntent previous step please
 GetPreviousStepIntent go back a step
 GetPreviousStepIntent go back
 
-
+ResetStepIntent start over
+ResetStepIntent go back to the beginning
+ResetStepIntent reset
+ResetStepIntent go back to the first step
+ResetStepIntent reset to the first step
+ResetStepIntent reset to the beginning

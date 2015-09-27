@@ -49,6 +49,25 @@ GetStepIntent could you please say that again
 GetStepIntent what am I doing
 GetStepIntent what was I doing
 GetStepIntent what should I be doing
+GetStepIntent current step
+GetStepIntent what's the current step
+GetStepIntent what step am I on
+GetStepIntent what step is this
+GetStepIntent can you repeat that
+GetStepIntent can you repeat that
+GetStepIntent can you repeat that again
+GetStepIntent can you repeat that again please
+GetStepIntent can you please repeat that
+GetStepIntent can you please repeat that again
+GetStepIntent can you say that again
+GetStepIntent can you say that again please
+GetStepIntent can you please say that again
+GetStepIntent pick up
+GetStepIntent pick up where we left off
+GetStepIntent continue cooking
+GetStepIntent continue the recpie
+GetStepIntent continue making {candy|recipe}
+GetStepIntent continue cooking {turkey|recipe}
 
 GetNextStepIntent what is the next step
 GetNextStepIntent what's the next step
@@ -56,6 +75,17 @@ GetNextStepIntent next
 GetNextStepIntent give me the next step
 GetNextStepIntent next step
 GetNextStepIntent next step please
+GetNextStepIntent move on
+GetNextStepIntent move on to the next step
+GetNextStepIntent go on
+GetNextStepIntent go on to the next step
+GetNextStepIntent continue
+GetNextStepIntent what's next
+GetNextStepIntent what I do next
+GetNextStepIntent what I should do next
+GetNextStepIntent what the next step is
+GetNextStepIntent continue
+GetNextStepIntent continue to the next step
 
 GetPreviousStepIntent what is the previous step
 GetPreviousStepIntent what's the previous step
@@ -72,9 +102,11 @@ ListIngredientsIntent what are the ingredients in this
 ListIngredientsIntent what is in this
 ListIngredientsIntent ingredients
 
-ResetStepIntent start over
-ResetStepIntent go back to the beginning
+ResetStepIntent I'm done
 ResetStepIntent reset
-ResetStepIntent go back to the first step
-ResetStepIntent reset to the first step
-ResetStepIntent reset to the beginning
+ResetStepIntent clear
+ResetStepIntent clear the recipe
+ResetStepIntent exit
+ResetStepIntent clean up
+ResetStepIntent close
+ResetStepIntent shut down

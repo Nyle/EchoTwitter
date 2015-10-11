@@ -12,6 +12,15 @@ package src;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.amazon.speech.speechlet.IntentRequest;
+import com.amazon.speech.speechlet.LaunchRequest;
+import com.amazon.speech.speechlet.Session;
+import com.amazon.speech.speechlet.SessionEndedRequest;
+import com.amazon.speech.speechlet.SessionStartedRequest;
+import com.amazon.speech.speechlet.Speechlet;
+import com.amazon.speech.speechlet.SpeechletException;
+import com.amazon.speech.speechlet.SpeechletResponse;
+
 import com.amazon.speech.speechlet.lambda.SpeechletRequestStreamHandler;
 
 /**
@@ -21,7 +30,7 @@ import com.amazon.speech.speechlet.lambda.SpeechletRequestStreamHandler;
  * this project using the {@code lambda-compile} Ant task and upload the resulting zip file to power
  * your function.
  */
-public final class TwitterRequestStreamHandler extends SpeechletRequestStreamHandler {
+public final class TwitterSpeechletRequestStreamHandler extends SpeechletRequestStreamHandler {
     private static final Set<String> supportedApplicationIds = new HashSet<String>();
     static {
         /*

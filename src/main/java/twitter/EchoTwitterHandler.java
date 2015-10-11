@@ -59,8 +59,14 @@ public class EchoTwitterHandler {
         public SpeechletResponse getTweetResponse(Intent intent, Session session)
                 throws SpeechletException, TwitterException {
                 //Instantiate and initialize a new twitter status update
+
+                String tweet = intent.getSlot("Tweet").getValue();
+                tweet = tweetParse(tweet);
+                if (tweet.length > 140) {
+                    //Something gets done here
+                }
                 StatusUpdate statusUpdate = new StatusUpdate(
-                        intent.getSlot("Tweet").getValue());
+                        tweet);
 
                 //tweet or update status
                 Status status = twitter.updateStatus(statusUpdate);
@@ -84,6 +90,17 @@ public class EchoTwitterHandler {
         
                 return SpeechletResponse.newTellResponse(speech);
 
+        }
+
+        public String tweetParse(String tweet) {
+            String[] arr = tweet.split(" ");
+            for (int i = 0; i < arr.size() - 1; i++) {
+                if (arr[i].equals("hashtag")) {
+                    arr[i] = "";
+                    arr[i+1] = "#" + arr[i+1];
+                }
+            }
+            tweet = String.join(" ", arr);
         }
 
 }

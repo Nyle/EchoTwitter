@@ -8,6 +8,10 @@
           "type": "LITERAL"
         }
       ]
-    }
+    },
+    {
+      "intent": "HelpIntent",
+      "slots": []
+	 }
   ]
 }

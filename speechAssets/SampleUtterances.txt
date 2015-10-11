@@ -2,3 +2,5 @@ NewTweetIntent {this is a tweet|Tweet}
 NewTweetIntent {great rally today hashtag feeltheburn|Tweet}
 NewTweetIntent {finally done cleaning hashtag alldone|Tweet}
 NewTweetIntent {if only I had more time|Tweet}
+
+HelpIntent help

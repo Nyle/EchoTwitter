@@ -1,0 +1,37 @@
+{
+  "intents": [
+    {
+      "intent": "HelpIntent",
+      "slots": []
+    },
+    {
+      "intent": "SetRecipeIntent",
+      "slots": [
+        {
+          "name": "Recipe",
+          "type": "LITERAL"
+        }
+      ]
+    },
+    {
+      "intent": "GetStepIntent",
+      "slots": []
+    },
+    {
+      "intent": "GetNextStepIntent",
+      "slots": []
+    },
+    {
+      "intent": "GetPreviousStepIntent",
+      "slots": []
+    },
+    {
+      "intent": "ResetStepIntent",
+      "slots": []
+    },
+    {
+      "intent": "GetIngredientsIntent",
+      "slots": []
+    }
+  ]
+}

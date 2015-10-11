@@ -1,0 +1,112 @@
+HelpIntent help
+HelpIntent help me
+HelpIntent what can I ask you
+HelpIntent get help
+HelpIntent what commands can I ask
+HelpIntent what commands can I say
+HelpIntent what can I do
+HelpIntent what can I use this for
+HelpIntent what questions can I ask
+HelpIntent what can you do
+HelpIntent what do you do
+HelpIntent how do I use you
+HelpIntent how can I use you
+HelpIntent what can you tell me
+
+SetRecipeIntent do you have a recipe for {spaghetti|Recipe}
+SetRecipeIntent do you have a recipe for {caramel|Recipe}
+SetRecipeIntent do you have a recipe for {ramen|Recipe}
+SetRecipeIntent do you have a recipe for {grilled cheese|Recipe}
+SetRecipeIntent do you have {chicken|Recipe}
+SetRecipeIntent do you have a {ramen|Recipe} recipie
+SetRecipeIntent get a recipe for {souffle|Recipe}
+SetRecipeIntent I want to make {turkey dinner|Recipe}
+SetRecipeIntent help me make {candy|Recipe}
+SetRecipeIntent let's make {duck|Recipe}
+SetRecipeIntent how about we make {chocolate|Recipe}
+SetRecipeIntent {spaghetti|Recipe}
+SetRecipeIntent {caramel|Recipe}
+SetRecipeIntent {ramen|Recipe}
+SetRecipeIntent {grilled cheese|Recipe}
+
+GetStepIntent what is the current step
+GetStepIntent repeat
+GetStepIntent repeat that
+GetStepIntent repeat that again
+GetStepIntent repeat that again please
+GetStepIntent could you repeat that
+GetStepIntent could you repeat that again
+GetStepIntent could you repeat that again please
+GetStepIntent could you please repeat that
+GetStepIntent could you please repeat that again
+GetStepIntent please repeat that
+GetStepIntent please repeat that again
+GetStepIntent say that again
+GetStepIntent say that again please
+GetStepIntent could you say that again
+GetStepIntent could you say that again please
+GetStepIntent could you please say that again
+GetStepIntent what am I doing
+GetStepIntent what was I doing
+GetStepIntent what should I be doing
+GetStepIntent current step
+GetStepIntent what's the current step
+GetStepIntent what step am I on
+GetStepIntent what step is this
+GetStepIntent can you repeat that
+GetStepIntent can you repeat that
+GetStepIntent can you repeat that again
+GetStepIntent can you repeat that again please
+GetStepIntent can you please repeat that
+GetStepIntent can you please repeat that again
+GetStepIntent can you say that again
+GetStepIntent can you say that again please
+GetStepIntent can you please say that again
+GetStepIntent pick up
+GetStepIntent pick up where we left off
+GetStepIntent continue cooking
+GetStepIntent continue the recpie
+GetStepIntent continue making {candy|recipe}
+GetStepIntent continue cooking {turkey|recipe}
+
+GetNextStepIntent what is the next step
+GetNextStepIntent what's the next step
+GetNextStepIntent next
+GetNextStepIntent give me the next step
+GetNextStepIntent next step
+GetNextStepIntent next step please
+GetNextStepIntent move on
+GetNextStepIntent move on to the next step
+GetNextStepIntent go on
+GetNextStepIntent go on to the next step
+GetNextStepIntent continue
+GetNextStepIntent what's next
+GetNextStepIntent what I do next
+GetNextStepIntent what I should do next
+GetNextStepIntent what the next step is
+GetNextStepIntent continue
+GetNextStepIntent continue to the next step
+
+GetPreviousStepIntent what is the previous step
+GetPreviousStepIntent what's the previous step
+GetPreviousStepIntent what was the previous step
+GetPreviousStepIntent previous
+GetPreviousStepIntent give me the previous step
+GetPreviousStepIntent previous step
+GetPreviousStepIntent previous step please
+GetPreviousStepIntent go back a step
+GetPreviousStepIntent go back
+
+ListIngredientsIntent what are the ingredients
+ListIngredientsIntent what are the ingredients in this
+ListIngredientsIntent what is in this
+ListIngredientsIntent ingredients
+
+ResetStepIntent I'm done
+ResetStepIntent reset
+ResetStepIntent clear
+ResetStepIntent clear the recipe
+ResetStepIntent exit
+ResetStepIntent clean up
+ResetStepIntent close
+ResetStepIntent shut down

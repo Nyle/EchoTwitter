@@ -59,7 +59,12 @@ public class TwitterSpeechlet implements Speechlet {
                                 throw new SpeechletException("Invalid Intent");
                         }
                 } catch (TwitterException e) {
-                        throw new SpeechletException("Twitter Error");
+                        if (e.getErrorMessage().equals("Status is a duplicate.")) {
+                                PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+                                speech.setText("I'm sorry, you recently tweeted the same message. Please tweet a new message");
+                                return SpeechletResponse.newTellResponse(speech);
+                        }
+                        throw new SpeechletException("Twitter Error " + e.getErrorMessage());
                 }
         }
 

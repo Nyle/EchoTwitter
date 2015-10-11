@@ -62,8 +62,10 @@ public class EchoTwitterHandler {
 
                 String tweet = intent.getSlot("Tweet").getValue();
                 tweet = tweetParse(tweet);
-                if (tweet.length > 140) {
-                    //Something gets done here
+                if (tweet.length() > 140) {
+                        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+                        speech.setText("I'm Sorry, your tweet is over one forty characters. Please tweet a shorter message.");
+                        return SpeechletResponse.newTellResponse(speech);
                 }
                 StatusUpdate statusUpdate = new StatusUpdate(
                         tweet);
@@ -72,7 +74,7 @@ public class EchoTwitterHandler {
                 Status status = twitter.updateStatus(statusUpdate);
 
                 PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-                speech.setText("It has been done");
+                speech.setText("I have tweeted " + tweet);
                 return SpeechletResponse.newTellResponse(speech);
         }
 
@@ -94,13 +96,14 @@ public class EchoTwitterHandler {
 
         public String tweetParse(String tweet) {
             String[] arr = tweet.split(" ");
-            for (int i = 0; i < arr.size() - 1; i++) {
+            for (int i = 0; i < arr.length - 1; i++) {
                 if (arr[i].equals("hashtag")) {
                     arr[i] = "";
                     arr[i+1] = "#" + arr[i+1];
                 }
             }
             tweet = String.join(" ", arr);
+            return tweet;
         }
 
 }

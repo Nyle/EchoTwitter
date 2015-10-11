@@ -5,7 +5,7 @@
       "slots": [
         {
           "name": "Tweet",
-          "type": "LITERAL"
+          "type": "AMAZON.LITERAL"
         }
       ]
     },
